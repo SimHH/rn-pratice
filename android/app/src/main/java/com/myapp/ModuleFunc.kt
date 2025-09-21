@@ -34,7 +34,7 @@ class ModuleFunc(reactContext: ReactApplicationContext) :
         try {
 
             val pid = LoadFrida.spawnApp(packageName)
-            if (pid > 0) {
+            if (pid !== "pid") {
                 promise.resolve("spawn $packageName with pid : $pid")
             } else {
                 promise.reject("ERR_SPAWN" + pid)

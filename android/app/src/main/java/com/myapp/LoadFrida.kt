@@ -9,5 +9,5 @@ object LoadFrida {
 
     external fun listApps(): List<String>
 
-    external fun spawnApp(packageName: String): Int
+    external fun spawnApp(packageName: String): String
 }

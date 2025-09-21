@@ -10,21 +10,18 @@ Java_com_myapp_LoadFrida_listApps(JNIEnv *env, jobject thiz) {
     frida_init();
     GError *error = NULL;
 
-    if (g_manager == NULL) {
-        g_manager = frida_device_manager_new();
-    }
+    FridaDeviceManager *manager = frida_device_manager_new();
+    FridaDevice *device = frida_device_manager_find_device_by_type_sync(
+        manager, FRIDA_DEVICE_TYPE_REMOTE, 0, NULL, &error
+    );
 
-    if (g_device == NULL) {
-        g_device = frida_device_manager_find_device_by_type_sync(
-            g_manager, FRIDA_DEVICE_TYPE_REMOTE, 0, NULL, &error);
-    }
 
-    if (error != NULL || g_device == NULL) {
+    if (error != NULL || device == NULL) {
         return NULL;
     }
 
     FridaApplicationList *apps =
-        frida_device_enumerate_applications_sync(g_device, NULL, NULL, &error);
+        frida_device_enumerate_applications_sync(device, NULL, NULL, &error);
 
     if (error != NULL || apps == NULL) {
         return NULL;
@@ -39,50 +36,54 @@ Java_com_myapp_LoadFrida_listApps(JNIEnv *env, jobject thiz) {
         FridaApplication *app = frida_application_list_get(apps, i);
 
         char buffer[512];
-        snprintf(buffer, sizeof(buffer), "%s (%s)",
-                 frida_application_get_identifier(app),
-                 frida_application_get_name(app));
+        snprintf(buffer, sizeof(buffer), "%s",
+                 frida_application_get_identifier(app));
 
         jstring jstr = (*env)->NewStringUTF(env, buffer);
         (*env)->CallBooleanMethod(env, list, add, jstr);
     }
 
     g_object_unref(apps);
-    g_object_unref(g_device);
-    g_object_unref(g_manager);
+    g_object_unref(device);
+    g_object_unref(manager);
 
     return list;
 }
 
-JNIEXPORT jint JNICALL
+JNIEXPORT jstring JNICALL
 Java_com_myapp_LoadFrida_spawnApp(JNIEnv *env, jobject thiz, jstring jpkg) {
     frida_init();
     GError *error = NULL;
 
     const char *pkg = (*env)->GetStringUTFChars(env, jpkg, 0);
 
+    FridaDeviceManager *manager = frida_device_manager_new();
     FridaDevice *device = frida_device_manager_find_device_by_type_sync(
-        g_manager, FRIDA_DEVICE_TYPE_REMOTE, 0, NULL, &error);
+        manager, FRIDA_DEVICE_TYPE_REMOTE, 0, NULL, &error
+    );
 
-        if(error != NULL || g_device == NULL) {
-            return -1;
-        }
+    if(error != NULL || device == NULL) {
+        return (*env)->NewStringUTF(env, "error at init");
+    }
 
-        // spawn
-        gint pid = frida_device_spawn_sync(g_device, pkg, NULL, NULL, &error);
-        if(error != NULL) return -2;
+    // spawn
+    gint pid = frida_device_spawn_sync(device, pkg, NULL, NULL, &error);
+    if(error != NULL) return (*env)->NewStringUTF(env, error->message);
 
+    // attach
+    FridaSession *session = frida_device_attach_sync(device, pid, NULL, NULL, &error);
+    if(error != NULL) return (*env)->NewStringUTF(env, error->message);
 
-        // attach
-        FridaSession *session = frida_device_attach_sync(g_device, pid, NULL, NULL, &error);
-        if(error != NULL) return -3;
+    // resume
+    frida_device_resume_sync(device, pid, NULL, &error);
+    if (error != NULL) return (*env)->NewStringUTF(env, error->message);
 
-        // resume
-        frida_device_resume_sync(g_device, pid, NULL, &error);
-        if (error != NULL) return -4;
+    (*env)->ReleaseStringUTFChars(env, jpkg, pkg);
 
-        (*env)->ReleaseStringUTFChars(env, jpkg, pkg);
-        return pid;
+    char buffer[128];
+    snprintf(buffer, sizeof(buffer), "Target Process init at %d", pid);
+
+    return (*env)->NewStringUTF(env, buffer);
     
 }
 

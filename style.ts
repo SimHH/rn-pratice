@@ -123,10 +123,10 @@ const styles = StyleSheet.create({
 
 
     appList: {
-
         fontSize: 20,
         fontWeight: "bold",
-
+        color: "black",
+        padding: 5,
     }
 
 })
