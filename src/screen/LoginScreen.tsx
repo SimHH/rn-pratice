@@ -8,14 +8,13 @@ import { NativeStackNavigationProp} from "@react-navigation/native-stack";
 import { RootStackParamList } from "../navigation/types";
 
 
-
 type LoginScreenNavigationProp = NativeStackNavigationProp<
                                     RootStackParamList, 
                                     "Login">;
 
 
 
-export default function LoginScreen() {
+export default function Login() {
     const [id, setId] = useState("");
     const [password, setPassword] = useState("");
     const [modalVisible, setModalVisible] = useState(false);
@@ -25,9 +24,12 @@ export default function LoginScreen() {
         try {
             // const user = await SignIn(id, password);
             const user = await SignIn("test@test.com", "11111111");
-            Alert.alert(`로그인 성공 ${user.email}`);
-            
-            navigation.navigate("Home")
+            if (user) {
+                
+                Alert.alert(`로그인 성공 ${user.email}`);
+                navigation.navigate("Home")
+            }
+
 
         } catch (err: any) {
             Alert.alert("로그인 실패", err.message);

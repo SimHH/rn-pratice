@@ -121,13 +121,37 @@ const styles = StyleSheet.create({
         padding: 10,
     },
 
+    appListTouchable: {
+        borderBottomWidth: 0.3,
+        borderTopWidth: 0.3,
+        borderColor: "black",
+
+    },
 
     appList: {
         fontSize: 20,
         fontWeight: "bold",
         color: "black",
-        padding: 5,
+        padding: 10,
+    },
+
+
+    selectAppName: {
+        color: "black",
+        textAlign: "center",
+        fontSize: 25,
+        padding: 25,
+        fontWeight: "bold",
+    },
+
+    scriptList: {
+        color: "black",
+        margin: 20,
+
+
     }
+
+
 
 })
 

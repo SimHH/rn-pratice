@@ -5,9 +5,11 @@ object LoadFrida {
         System.loadLibrary("frida-jni")
     }
 
-    external fun getMessage(): String
+    external fun getMessageC(): String
 
-    external fun listApps(): List<String>
+    external fun listAppsC(): List<String>
 
-    external fun spawnApp(packageName: String): String
+    external fun spawnAppC(packageName: String): String
+
+    external fun loadScriptC(packageName: String, scriptName: String): String
 }

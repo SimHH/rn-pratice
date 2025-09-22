@@ -36,5 +36,4 @@ export async function SignUp(email: string, password: string) {
         }
         throw err;
     }
-
 }

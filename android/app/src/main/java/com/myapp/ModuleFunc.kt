@@ -10,7 +10,7 @@ class ModuleFunc(reactContext: ReactApplicationContext) :
     @ReactMethod
     fun getMessageFromC(promise: Promise) {
         try {
-            val msg = LoadFrida.getMessage()
+            val msg = LoadFrida.getMessageC()
             promise.resolve(msg)
         } catch (e: Exception) {
             promise.reject("ERR_NATIVE", e)
@@ -20,7 +20,7 @@ class ModuleFunc(reactContext: ReactApplicationContext) :
     @ReactMethod
     fun showApps(promise: Promise) {
         try {
-            val apps: List<String> = LoadFrida.listApps()
+            val apps: List<String> = LoadFrida.listAppsC()
             val result = WritableNativeArray()
             apps.forEach { result.pushString(it) }
             promise.resolve(result)
@@ -33,7 +33,7 @@ class ModuleFunc(reactContext: ReactApplicationContext) :
     fun spawnApp(packageName: String, promise: Promise) {
         try {
 
-            val pid = LoadFrida.spawnApp(packageName)
+            val pid = LoadFrida.spawnAppC(packageName)
             if (pid !== "pid") {
                 promise.resolve("spawn $packageName with pid : $pid")
             } else {
@@ -42,6 +42,23 @@ class ModuleFunc(reactContext: ReactApplicationContext) :
 
         } catch (e: Exception) {
             promise.reject("ERR_SPAWN", e);
+
+        }
+    }
+
+    @ReactMethod
+    fun load_script(packageName: String, scriptName: String, promise: Promise) {
+        try {
+
+            val result = LoadFrida.loadScriptC(packageName, scriptName)
+            if (result == "SUCCESS") {
+                promise.resolve("spawn $packageName with $scriptName")
+            } else {
+                promise.reject("ERR_LOAD_SCRIPT123", result)
+            }
+
+        } catch (e: Exception) {
+            promise.reject("ERR_LOAD_SCRIPT", e);
 
         }
     }
