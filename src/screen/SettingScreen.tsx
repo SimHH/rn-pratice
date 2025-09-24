@@ -1,6 +1,6 @@
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../navigation/types";
-import { Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 
 type SettingScreenNavigationProp = NativeStackNavigationProp<
                                     RootStackParamList, 
@@ -9,9 +9,11 @@ type SettingScreenNavigationProp = NativeStackNavigationProp<
 export default function SettingScreen() {
 
     return (
-        <Text>
-            설정
-        </Text>
+        <View>
+            <Text>
+                설정
+            </Text>
+        </View>
     );
 
 }
