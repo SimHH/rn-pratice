@@ -6,6 +6,7 @@ import { SignIn } from "../service/authService/SignInEmail";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp} from "@react-navigation/native-stack";
 import { RootStackParamList } from "../navigation/types";
+import { initScript } from "../utils/initScript";
 
 
 type LoginScreenNavigationProp = NativeStackNavigationProp<
@@ -27,7 +28,8 @@ export default function Login() {
             if (user) {
                 
                 Alert.alert(`로그인 성공 ${user.email}`);
-                navigation.navigate("Home")
+                initScript();
+                navigation.navigate("Home");
             }
 
 

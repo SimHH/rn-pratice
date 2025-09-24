@@ -9,15 +9,12 @@ export async function initScript() {
     const secretKey = KeySnap.data()?.secretKey;
 
     try {
-        const querySnapshot = await getDocs(collection(fireStoreDB, "script"))
+        const querySnapshot = await getDocs(collection(fireStoreDB, "Android"))
 
         for (const docSnap of querySnapshot.docs) {
 
             const docId = docSnap.id;
 
-            if (docId.includes("iOS")) {
-                continue;
-            }
 
             const encrypted = docSnap.data().encScript;
 

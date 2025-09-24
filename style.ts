@@ -121,14 +121,14 @@ const styles = StyleSheet.create({
         padding: 10,
     },
 
-    appListTouchable: {
+    listTouchable: {
         borderBottomWidth: 0.3,
         borderTopWidth: 0.3,
         borderColor: "black",
 
     },
 
-    appList: {
+    list: {
         fontSize: 20,
         fontWeight: "bold",
         color: "black",
@@ -149,6 +149,10 @@ const styles = StyleSheet.create({
         margin: 20,
 
 
+    },
+
+    bottomTab: {
+        height: 80,
     }
 
 

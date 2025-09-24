@@ -35,7 +35,7 @@ export default function Home() {
       renderItem={({ item }) => (
 
         <TouchableOpacity
-          style={styles.appListTouchable}
+          style={styles.listTouchable}
           onPress={() => {
             // FridaFunc.spawnApp(item)
             //   .then((msg: any) => console.log(msg))
@@ -46,7 +46,7 @@ export default function Home() {
 
           }}
         >
-          <Text style={styles.appList}>{item}</Text>
+          <Text style={styles.list}>{item}</Text>
           
         </TouchableOpacity>
       )}
