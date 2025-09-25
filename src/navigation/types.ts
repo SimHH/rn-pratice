@@ -3,4 +3,8 @@ export type RootStackParamList = {
   Home: undefined;
   SelectScript: { appName: string };
   Setting: undefined;
+  ScriptManage: undefined;
+  ScriptPush: undefined;
+  AppInfo: undefined;
 };
+

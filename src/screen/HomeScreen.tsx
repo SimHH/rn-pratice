@@ -7,13 +7,13 @@ import { RootStackParamList } from "../navigation/types";
 
 const { FridaFunc } = NativeModules;
 
-type LoginScreenNavigationProp = NativeStackNavigationProp<
+type HomeNav = NativeStackNavigationProp<
                                     RootStackParamList, 
-                                    "Login">;
+                                    "Home">;
 
 export default function Home() {
   const [apps, setApps] = useState<string[]>([]);
-  const navigation = useNavigation<LoginScreenNavigationProp>();
+  const navigation = useNavigation<HomeNav>();
 
   useEffect(() => {
     FridaFunc.showApps()

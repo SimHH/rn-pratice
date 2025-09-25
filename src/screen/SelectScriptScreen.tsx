@@ -1,11 +1,15 @@
 import { NativeModules, View, Text } from "react-native";
 import { RouteProp } from "@react-navigation/native";
-import { RootStackParamList } from "../navigation/types";
+import { RootStackParamList, SettingStackParamList } from "../navigation/types";
 import ScriptList from "../utils/scriptList";
 import styles from "../../style";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 type SelectScriptRouteProp = RouteProp<RootStackParamList, "SelectScript">;
 const { FridaFunc } = NativeModules;
+
+const SettingStack = createNativeStackNavigator<SettingStackParamList>();
+
 
 export default function SelectScript({ route }: { route: SelectScriptRouteProp }) {
   const { appName } = route.params;

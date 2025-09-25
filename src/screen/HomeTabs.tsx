@@ -2,6 +2,8 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "./HomeScreen";
 import SettingScreen from "./SettingScreen";
 import styles from "../../style";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../navigation/types";
 
 const Tab = createBottomTabNavigator();
 
