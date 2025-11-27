@@ -25,6 +25,12 @@ export default function Home() {
       });
   }, []);
 
+<<<<<<< HEAD
+=======
+  useEffect
+
+
+>>>>>>> 6a905d212a6a7b9f30176c34780a4a77467f25ae
   return (
     <FlatList
       data={apps}
