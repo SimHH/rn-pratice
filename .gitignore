@@ -53,12 +53,10 @@ yarn-error.log
 **/fastlane/screenshots
 **/fastlane/test_output
 
-<<<<<<< HEAD
+
 # frida libs
 C:\Users\sim\Desktop\rn-pratice-main\android\app\src\main\cpp\libs\arm64-v8a\libfrida-core.a
 
-=======
->>>>>>> 6a905d212a6a7b9f30176c34780a4a77467f25ae
 # Bundle artifact
 *.jsbundle
 
